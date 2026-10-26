@@ -28,35 +28,39 @@ button,input,textarea{font:inherit;color:inherit}button{border:0;background:none
 /* backdrop: stars + soft grey light blobs so the glass has something to bend */
 #stars{position:fixed;inset:0;z-index:0;pointer-events:none}
 .blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.blob{position:absolute;border-radius:50%;filter:blur(80px);background:radial-gradient(circle,rgba(255,255,255,.42),rgba(255,255,255,0) 70%);animation:drift 26s ease-in-out infinite alternate}
+.blob{position:absolute;border-radius:50%;filter:blur(48px);background:radial-gradient(circle,rgba(255,255,255,.6),rgba(255,255,255,0) 68%);animation:drift 26s ease-in-out infinite alternate,morph 16s ease-in-out infinite}
 .b1{width:min(60vw,640px);aspect-ratio:1;left:-12%;top:-6%}
 .b2{width:min(52vw,560px);aspect-ratio:1;right:-14%;top:34%;opacity:.7;animation-delay:-9s}
 .b3{width:min(48vw,500px);aspect-ratio:1;left:22%;bottom:-16%;opacity:.55;animation-delay:-15s}
+.b4{width:min(36vw,400px);aspect-ratio:1;right:16%;top:6%;opacity:.55;filter:blur(36px);background:conic-gradient(from 0deg,rgba(255,255,255,.8),rgba(255,255,255,0) 38%,rgba(255,255,255,.55) 68%,rgba(255,255,255,0));animation:spin 28s linear infinite,morph 13s ease-in-out infinite}
 @keyframes drift{to{transform:translate3d(7vw,6vh,0) scale(1.18)}}
+@keyframes morph{50%{border-radius:42% 58% 63% 37%/45% 38% 62% 55%}}
+@keyframes spin{to{transform:rotate(360deg)}}
 .grain{position:fixed;inset:-10%;z-index:1;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");animation:grn .4s steps(3) infinite}
 @keyframes grn{33%{transform:translate(-1%,-2%)}66%{transform:translate(2%,1%)}}
-#cdot,#cring{position:fixed;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);mix-blend-mode:difference;z-index:9999}
-#cdot{width:7px;height:7px;background:#fff;transition:width .2s,height .2s}
-#cring{width:34px;height:34px;border:1px solid #fff;opacity:.45;z-index:9998;transition:width .25s,height .25s}
+#cdot,#cring{position:fixed;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);z-index:9999}
+#cdot{width:7px;height:7px;background:#fff;mix-blend-mode:difference;transition:width .2s,height .2s}
+#cring{width:46px;height:46px;z-index:9998;background:rgba(255,255,255,.04);-webkit-backdrop-filter:blur(2px) saturate(220%) brightness(1.15);backdrop-filter:blur(2px) saturate(220%) brightness(1.15);box-shadow:inset 1.5px 1.5px 1px rgba(255,255,255,.7),inset -1px -1px 1px rgba(255,255,255,.35),0 6px 20px rgba(0,0,0,.4);transition:width .4s cubic-bezier(.3,1.6,.5,1),height .4s cubic-bezier(.3,1.6,.5,1)}
 @media(hover:none){#cdot,#cring{display:none!important}}
 
 /* ═══ LIQUID GLASS ═══ */
 .glass{position:relative;overflow:hidden;border-radius:var(--r);
-  background:linear-gradient(140deg,rgba(255,255,255,.12),rgba(255,255,255,.035) 55%,rgba(255,255,255,.07));
-  -webkit-backdrop-filter:blur(24px) saturate(180%) brightness(1.1);backdrop-filter:blur(24px) saturate(180%) brightness(1.1);
-  box-shadow:inset 1px 1px 1px rgba(255,255,255,.4),inset -1px -1px 1px rgba(255,255,255,.1),inset 0 0 28px rgba(255,255,255,.05),0 22px 60px rgba(0,0,0,.6),0 2px 8px rgba(0,0,0,.4);
-  transition:transform .45s cubic-bezier(.2,.9,.3,1.2),box-shadow .3s}
+  background:linear-gradient(140deg,rgba(255,255,255,.085),rgba(255,255,255,.012) 50%,rgba(255,255,255,.05));text-shadow:0 1px 14px rgba(0,0,0,.5);
+  -webkit-backdrop-filter:blur(5px) saturate(190%) contrast(1.06);backdrop-filter:blur(5px) saturate(190%) contrast(1.06);
+  box-shadow:inset 2px 2px 1px -1px rgba(255,255,255,.7),inset -2px -2px 1px -1px rgba(255,255,255,.4),inset 0 0 34px rgba(255,255,255,.05),inset 0 -14px 24px -14px rgba(255,255,255,.14),0 18px 50px rgba(0,0,0,.45),0 2px 6px rgba(0,0,0,.3);
+  transition:transform .6s cubic-bezier(.34,1.7,.5,1),box-shadow .3s}
 .glass::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
   background:linear-gradient(145deg,rgba(255,255,255,.7),rgba(255,255,255,.06) 32%,rgba(255,255,255,.03) 68%,rgba(255,255,255,.36));
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
 .glass::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s;
-  background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.24),transparent 62%)}
+  background:radial-gradient(280px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.32),transparent 60%)}
 .glass:hover::after{opacity:1}
-.lift:hover{transform:translateY(-6px) scale(1.012)}
-.glass:active{transform:scale(.985)}
+.lift:hover{transform:translateY(-8px) scale(1.022,1.012)}
+.glass:active{transform:scale(.965,.95)}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.glass{background:rgba(28,28,28,.92)}}
 /* real refraction in Chromium (SVG displacement); Safari/Firefox keep the blur version */
-.chromium .refract{-webkit-backdrop-filter:url(#lens) blur(10px) saturate(180%) brightness(1.1);backdrop-filter:url(#lens) blur(10px) saturate(180%) brightness(1.1)}
+.chromium .refract{-webkit-backdrop-filter:url(#lens) blur(3px) saturate(190%) contrast(1.05);backdrop-filter:url(#lens) blur(3px) saturate(190%) contrast(1.05)}
+@media (hover:hover) and (min-width:900px){.chromium .glass{-webkit-backdrop-filter:url(#lens) blur(3px) saturate(190%) contrast(1.05);backdrop-filter:url(#lens) blur(3px) saturate(190%) contrast(1.05)}}
 
 /* shared */
 section{position:relative;z-index:2;padding:clamp(64px,10vw,130px) 0;scroll-margin-top:60px}
@@ -76,13 +80,14 @@ section{position:relative;z-index:2;padding:clamp(64px,10vw,130px) 0;scroll-marg
 .btn.solid:hover{background:rgba(255,255,255,.88)}
 
 /* nav */
-nav{position:fixed;top:max(12px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);z-index:600;width:min(940px,100% - 24px);display:flex;align-items:center;justify-content:space-between;padding:7px 8px 7px 24px;border-radius:99px}
-nav:hover{transform:translateX(-50%)}
+nav.glass{position:fixed;top:max(12px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);z-index:600;width:min(940px,100% - 24px);display:flex;align-items:center;justify-content:space-between;padding:7px 8px 7px 24px;border-radius:99px}
+nav.glass:hover,nav.glass:active{transform:translateX(-50%)}
 .nav-logo{font-size:1.45rem;font-style:italic;font-weight:500}.nav-logo span{color:var(--dim)}
 .nav-links{position:relative;display:flex;gap:2px}
 .nav-links a{position:relative;z-index:2;padding:9px 18px;border-radius:99px;font-weight:500;color:var(--muted);transition:color .25s}
 .nav-links a:hover,.nav-links a.active{color:#fff}
-.ind{position:absolute;z-index:1;top:0;bottom:0;left:0;width:0;border-radius:99px;background:rgba(255,255,255,.16);box-shadow:inset 1px 1px 1px rgba(255,255,255,.5),inset -1px -1px 1px rgba(255,255,255,.1);transition:left .5s cubic-bezier(.3,1.3,.4,1),width .5s cubic-bezier(.3,1.3,.4,1)}
+.ind{position:absolute;z-index:1;top:0;bottom:0;left:0;width:0;border-radius:99px;background:rgba(255,255,255,.14);-webkit-backdrop-filter:blur(2px) saturate(220%);backdrop-filter:blur(2px) saturate(220%);box-shadow:inset 1.5px 1.5px 1px rgba(255,255,255,.7),inset -1px -1px 1px rgba(255,255,255,.3),0 4px 14px rgba(0,0,0,.35);transition:left .55s cubic-bezier(.3,1.5,.4,1),width .55s cubic-bezier(.3,1.5,.4,1),transform .45s cubic-bezier(.3,1.6,.5,1)}
+.ind.move{transform:scale(1.12,.78)}
 .hamburger{display:none;width:48px;height:48px;border-radius:50%;flex-direction:column;align-items:center;justify-content:center;gap:5px}
 .hamburger i{width:20px;height:1.5px;background:#fff;display:block;transition:.3s}
 .hamburger.open i:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
@@ -254,7 +259,7 @@ footer{position:relative;z-index:2;padding:34px 16px calc(46px + env(safe-area-i
   .hero-btns .btn{flex:1 1 100%}
   .watch-credit{display:none}
   .toast-msg{white-space:normal;width:calc(100% - 32px);text-align:center}
-  .glass{-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%)}
+  .glass{-webkit-backdrop-filter:blur(5px) saturate(180%);backdrop-filter:blur(5px) saturate(180%)}
 }
 @media(max-width:360px){body{font-size:16px}.hero-name{font-size:3.1rem}}
 @media(max-height:520px) and (orientation:landscape){#hero{padding-top:100px}}
@@ -264,10 +269,10 @@ footer{position:relative;z-index:2;padding:34px 16px calc(46px + env(safe-area-i
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="lens" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".009 .012" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="26" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="lens" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".006 .009" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="40" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
 
 <canvas id="stars" aria-hidden="true"></canvas>
-<div class="blobs" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+<div class="blobs" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
 <div class="grain" aria-hidden="true"></div>
 <div id="cdot" aria-hidden="true"></div><div id="cring" aria-hidden="true"></div>
 
@@ -470,8 +475,8 @@ var cdot=$('cdot'),cring=$('cring'),mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;cdot.style.left=mx+'px';cdot.style.top=my+'px'});
 (function loop(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;cring.style.left=rx+'px';cring.style.top=ry+'px';requestAnimationFrame(loop)})();
 document.querySelectorAll('a,button,.skill-card,.mini,.fact,.sc-tag').forEach(function(el){
-  el.addEventListener('mouseenter',function(){cdot.style.width=cdot.style.height='12px';cring.style.width=cring.style.height='54px';cring.style.opacity='.22'});
-  el.addEventListener('mouseleave',function(){cdot.style.width=cdot.style.height='7px';cring.style.width=cring.style.height='34px';cring.style.opacity='.45'})});
+  el.addEventListener('mouseenter',function(){cdot.style.width=cdot.style.height='10px';cring.style.width=cring.style.height='78px'});
+  el.addEventListener('mouseleave',function(){cdot.style.width=cdot.style.height='7px';cring.style.width=cring.style.height='46px'})});
 
 /* liquid light: specular highlight follows the pointer on every glass piece */
 document.addEventListener('pointermove',function(e){var g=e.target.closest&&e.target.closest('.glass');if(!g)return;var r=g.getBoundingClientRect();g.style.setProperty('--mx',(e.clientX-r.left)+'px');g.style.setProperty('--my',(e.clientY-r.top)+'px')});
@@ -513,7 +518,7 @@ setTimeout(function(){typeCmd('ls -la',function(){setTimeout(runLS,360)})},1500)
 
 /* nav: sliding liquid indicator + scroll spy */
 var navbar=$('navbar'),secs=document.querySelectorAll('section[id]'),nl=document.querySelectorAll('.navlink'),bt=$('backtop'),ind=$('ind');
-function moveInd(){var a=document.querySelector('.navlink.active');if(a&&a.offsetWidth){ind.style.left=a.parentElement.offsetLeft+'px';ind.style.width=a.offsetWidth+'px'}}
+function moveInd(){var a=document.querySelector('.navlink.active');if(a&&a.offsetWidth){var l=a.parentElement.offsetLeft+'px';if(ind.style.left!==l){ind.classList.add('move');setTimeout(function(){ind.classList.remove('move')},380)}ind.style.left=l;ind.style.width=a.offsetWidth+'px'}}
 addEventListener('scroll',function(){bt.classList.toggle('show',scrollY>420);var cur='hero';secs.forEach(function(s){if(scrollY>=s.offsetTop-200)cur=s.id});if(cur==='setup')cur='skills';
   nl.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+cur)});moveInd()},{passive:true});
 addEventListener('resize',moveInd);addEventListener('load',moveInd);document.fonts&&document.fonts.ready.then(moveInd);
